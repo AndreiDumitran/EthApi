@@ -3,8 +3,8 @@ import controller from '../controllers/Eth';
 
 const router = express.Router();
 
-router.post('/create', controller.createEthPriceRecord);
-router.get('/get/:timeStamp', controller.readEthPriceRecord);
-router.delete('/delete/:timeStamp', controller.deleteEthPriceRecord);
+router.post('/createPrice', controller.createEthPrice);
+router.get('/get/:xMinsAgo', controller.readXMinsAgo);
+router.get('/get', controller.getAll);
 
-export = router;
+export default router;

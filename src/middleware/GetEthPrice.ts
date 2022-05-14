@@ -1,14 +1,16 @@
-import CoinGeckoApi from '@crypto-coffee/coingecko-api';
+//1. Import coingecko-api
+import CoinGecko from 'coingecko-api';
 
-(async () => {
-	try {
-		const coinGeckoApi = new CoinGeckoApi();
-		const results = await coinGeckoApi.simple({
-			ids: 'Bitcoin',
-			vs_currencies: 'usd',
-		});
-		console.log(results);
-	} catch (err) {
-		// do something with the error
-	}
-})();
+//2. Initiate the CoinGecko API Client
+const CoinGeckoClient = new CoinGecko();
+
+//3. Make calls
+const GetData = async () => {
+	let data = await CoinGeckoClient.simple.price({
+		ids: 'ethereum',
+		vs_currencies: 'usd',
+	});
+	return data.data.ethereum.usd;
+};
+
+export default GetData;

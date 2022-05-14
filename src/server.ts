@@ -4,8 +4,8 @@ import mongoose, { mongo } from 'mongoose';
 
 import { config } from './config/config';
 import Logging from './library/Logging';
-
-import ethPriceRoutes from './routes/Eth';
+import AutoPOST from './middleware/AutoPOST';
+import EthRoutes from './routes/Eth';
 
 const router = express();
 
@@ -47,18 +47,22 @@ const StartServer = () => {
 	});
 
 	/** Routes */
-	router.use('/ethPrice', ethPriceRoutes);
+	router.use('/price', EthRoutes);
 
 	/** Healthcheck */
 	router.get('/ping', (req, res, next) => res.status(200).json({ message: 'pong' }));
 
 	/** Error */
 	router.use((req, res, next) => {
-		const error = new Error('not found');
+		const error = new Error('Route not found');
 		Logging.error(error);
 
 		return res.status(404).json({ message: error.message });
 	});
 
 	http.createServer(router).listen(config.server.port, () => Logging.info(`Server is running on port ${config.server.port}.`));
+	setInterval(function () {
+		AutoPOST.AutoPOSTRequest();
+		console.log('Oooo Yeaaa!');
+	}, 6000);
 };
