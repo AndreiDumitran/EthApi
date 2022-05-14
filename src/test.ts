@@ -3,3 +3,5 @@ let currentDate = new Date();
 let futureDate = new Date(currentDate.getTime() + minutesToAdd * 60000);
 
 console.log(futureDate);
+console.log(futureDate);
+console.log(futureDate);
