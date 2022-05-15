@@ -5,18 +5,13 @@ export interface IEthPrice {
 
 export interface IEthPriceModel extends IEthPrice, Document {}
 
-const EthPriceSchema: Schema = new Schema(
-	{
-		price: { type: Number, required: true, index: true },
-		expireAt: {
-			type: Date,
-			default: Date.now,
-			expires: '60m',
-		},
+const EthPriceSchema: Schema = new Schema({
+	price: { type: Number, required: true, index: true },
+	expireAt: {
+		type: Date,
+		default: Date.now,
+		expires: '60m',
 	},
-	{
-		versionKey: false,
-	}
-);
+});
 
 export default mongoose.model<IEthPrice>('EthPrice', EthPriceSchema);

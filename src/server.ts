@@ -63,6 +63,5 @@ const StartServer = () => {
 	http.createServer(router).listen(config.server.port, () => Logging.info(`Server is running on port ${config.server.port}.`));
 	setInterval(function () {
 		AutoPOST.AutoPOSTRequest();
-		console.log('Oooo Yeaaa!');
-	}, 6000);
+	}, 60000);
 };
