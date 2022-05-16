@@ -1,33 +1,47 @@
-## Installation 
+## Dependancies
 
-### Dependencies
+-   Docker needs to be isntalled
 
-* run `npm install` to install all dependencies
+## .env
 
-## .env 
+-   copy the .env_example file, rename it and modify `SERVER_PORT` as with the desired port
 
-* copy the .env_example file and modify it accordingly
+## Usage
 
-## Endpoints
+-   run `docker-compose up` which should start the project
 
-`/price/get/getAll
+## Routes
 
+-   `/price/createPrice` - creates a record in the database with the current price of ETH in USD at the moment of calling the route
+    -   The server calls this route every 60 seconds to create a new record in the database
+-   `/price/get/singlePrice/{minutesAgo}` - returns what was the ETH price in USD `{minutesAgo}`
+    -   Example: `/price/get/singlePrice/15` - will return the price of ETH in USD from `15` minutes ago assuming that the server runned for more than 15 minutes
+-   `/price/get/getAll/{page}/{limit}` - returns the records stored in the database as `{limit}` per `{page}`
+    -   Example: `/price/get/getAll/1/8` - will return `8` records from page `1` which means the database has at least `9` records
+    -   NOTE: the pagination starts from `index 0` - first page is always `0`
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+## Database
 
-## License
+The records in the database will remove itself after 60 minutes due to:
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+```
+expireAt: {
+		type: Date,
+		default: Date.now,
+		expires: '60m',
+	},
+```
 
-## Acknowledgments
+## Requirements
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+- [x] Only 60 records in the database
+- [x] Public endpoint with pagination
+- [x] Public endpoint to return single data point
+- [x] NodeJS
+- [x] ExpressJS
+- [x] Docker
+- [x] REST
+- [ ] SOLID principles
+- [ ] Hexagonal Principles
+- [x] MongoDB
+- [ ] Tests
