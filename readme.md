@@ -1,3 +1,8 @@
+## Description
+
+This server collects data from CoinGecko API every 60 seconds and creates a new record in the database of the USD price of ETH. The results are saved in a local database and it holds the records for an hour.
+
+
 ## Dependancies
 
 -   Docker needs to be isntalled
